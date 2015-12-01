@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Participant:</strong>
+  <%= @home_rating.participant %>
+</p>
+
+<p>
+  <strong>Committee:</strong>
+  <%= @home_rating.committee %>
+</p>
+
+<p>
+  <strong>Rating:</strong>
+  <%= @home_rating.rating %>
+</p>
+
+<p>
+  <strong>Explanation:</strong>
+  <%= @home_rating.explanation %>
+</p>
+
+<p>
+  <strong>Prep rating:</strong>
+  <%= @home_rating.prep_rating %>
+</p>
+
+<p>
+  <strong>Prep explanation:</strong>
+  <%= @home_rating.prep_explanation %>
+</p>
+
+<p>
+  <strong>Prior difficulties:</strong>
+  <%= @home_rating.prior_difficulties %>
+</p>
+
+<%= link_to 'Edit', edit_home_rating_path(@home_rating) %> |
+<%= link_to 'Back', home_ratings_path %>

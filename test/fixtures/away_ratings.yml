@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  internship_id: 
+  committee_id: 
+  visa: 1
+  rating: 1
+  explanation: MyText
+  experience_difficulties: 
+
+two:
+  internship_id: 
+  committee_id: 
+  visa: 1
+  rating: 1
+  explanation: MyText
+  experience_difficulties: 

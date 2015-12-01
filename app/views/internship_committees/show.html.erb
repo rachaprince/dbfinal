@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Internship:</strong>
+  <%= @internship_committee.internship %>
+</p>
+
+<p>
+  <strong>Home c:</strong>
+  <%= @internship_committee.home_c %>
+</p>
+
+<p>
+  <strong>Away c:</strong>
+  <%= @internship_committee.away_c %>
+</p>
+
+<%= link_to 'Edit', edit_internship_committee_path(@internship_committee) %> |
+<%= link_to 'Back', internship_committees_path %>

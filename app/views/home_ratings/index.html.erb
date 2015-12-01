@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Home Ratings</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Participant</th>
+      <th>Committee</th>
+      <th>Rating</th>
+      <th>Explanation</th>
+      <th>Prep rating</th>
+      <th>Prep explanation</th>
+      <th>Prior difficulties</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @home_ratings.each do |home_rating| %>
+      <tr>
+        <td><%= home_rating.participant %></td>
+        <td><%= home_rating.committee %></td>
+        <td><%= home_rating.rating %></td>
+        <td><%= home_rating.explanation %></td>
+        <td><%= home_rating.prep_rating %></td>
+        <td><%= home_rating.prep_explanation %></td>
+        <td><%= home_rating.prior_difficulties %></td>
+        <td><%= link_to 'Show', home_rating %></td>
+        <td><%= link_to 'Edit', edit_home_rating_path(home_rating) %></td>
+        <td><%= link_to 'Destroy', home_rating, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Home rating', new_home_rating_path %>

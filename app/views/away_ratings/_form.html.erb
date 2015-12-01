@@ -1,0 +1,41 @@
+<%= form_for(@away_rating) do |f| %>
+  <% if @away_rating.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@away_rating.errors.count, "error") %> prohibited this away_rating from being saved:</h2>
+
+      <ul>
+      <% @away_rating.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :internship_id %><br>
+    <%= f.text_field :internship_id %>
+  </div>
+  <div class="field">
+    <%= f.label :committee_id %><br>
+    <%= f.text_field :committee_id %>
+  </div>
+  <div class="field">
+    <%= f.label :visa %><br>
+    <%= f.number_field :visa %>
+  </div>
+  <div class="field">
+    <%= f.label :rating %><br>
+    <%= f.number_field :rating %>
+  </div>
+  <div class="field">
+    <%= f.label :explanation %><br>
+    <%= f.text_area :explanation %>
+  </div>
+  <div class="field">
+    <%= f.label :experience_difficulties %><br>
+    <%= f.text_field :experience_difficulties %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

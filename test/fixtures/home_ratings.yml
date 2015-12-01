@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  participant_id: 
+  committee_id: 
+  rating: 1
+  explanation: MyText
+  prep_rating: 1
+  prep_explanation: MyText
+  prior_difficulties: 
+
+two:
+  participant_id: 
+  committee_id: 
+  rating: 1
+  explanation: MyText
+  prep_rating: 1
+  prep_explanation: MyText
+  prior_difficulties: 

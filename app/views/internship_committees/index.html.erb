@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Internship Committees</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Internship</th>
+      <th>Home c</th>
+      <th>Away c</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @internship_committees.each do |internship_committee| %>
+      <tr>
+        <td><%= internship_committee.internship %></td>
+        <td><%= internship_committee.home_c %></td>
+        <td><%= internship_committee.away_c %></td>
+        <td><%= link_to 'Show', internship_committee %></td>
+        <td><%= link_to 'Edit', edit_internship_committee_path(internship_committee) %></td>
+        <td><%= link_to 'Destroy', internship_committee, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Internship committee', new_internship_committee_path %>

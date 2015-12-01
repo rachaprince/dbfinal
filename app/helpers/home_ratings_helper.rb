@@ -1,0 +1,2 @@
+module HomeRatingsHelper
+end

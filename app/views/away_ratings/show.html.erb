@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Internship:</strong>
+  <%= @away_rating.internship %>
+</p>
+
+<p>
+  <strong>Committee:</strong>
+  <%= @away_rating.committee %>
+</p>
+
+<p>
+  <strong>Visa:</strong>
+  <%= @away_rating.visa %>
+</p>
+
+<p>
+  <strong>Rating:</strong>
+  <%= @away_rating.rating %>
+</p>
+
+<p>
+  <strong>Explanation:</strong>
+  <%= @away_rating.explanation %>
+</p>
+
+<p>
+  <strong>Experience difficulties:</strong>
+  <%= @away_rating.experience_difficulties %>
+</p>
+
+<%= link_to 'Edit', edit_away_rating_path(@away_rating) %> |
+<%= link_to 'Back', away_ratings_path %>

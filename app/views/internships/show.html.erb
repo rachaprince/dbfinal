@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @internship.type %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @internship.name %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @internship.start_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @internship.end_date %>
+</p>
+
+<p>
+  <strong>Key learning:</strong>
+  <%= @internship.key_learning %>
+</p>
+
+<p>
+  <strong>Overall rating:</strong>
+  <%= @internship.overall_rating %>
+</p>
+
+<p>
+  <strong>Overall expl:</strong>
+  <%= @internship.overall_expl %>
+</p>
+
+<p>
+  <strong>Internship rating:</strong>
+  <%= @internship.internship_rating %>
+</p>
+
+<p>
+  <strong>Internship expl:</strong>
+  <%= @internship.internship_expl %>
+</p>
+
+<p>
+  <strong>Participant:</strong>
+  <%= @internship.participant %>
+</p>
+
+<%= link_to 'Edit', edit_internship_path(@internship) %> |
+<%= link_to 'Back', internships_path %>

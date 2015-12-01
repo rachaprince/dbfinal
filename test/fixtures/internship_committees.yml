@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  internship_id: 
+  home_c_id: 
+  away_c_id: 
+
+two:
+  internship_id: 
+  home_c_id: 
+  away_c_id: 
