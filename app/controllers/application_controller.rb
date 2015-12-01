@@ -6,4 +6,22 @@ class ApplicationController < ActionController::Base
   def hello
   	render text: "Hello World" 
   end
+
+  def init
+  	Podio.setup(
+  		:api_key    => 'aiesecdatabase',
+  		:api_secret => 'zONm9h1SrW8EOh3TLp1SROjK519B2NamVev4oWW6WFe4dKnDg5NLAZTLaXsNdZ2x'
+		)
+
+		begin
+  		Podio.client.authenticate_with_app('12658551', '775d01a88a884106a3a991c58bdd8e4d')
+
+  			render text: "Podio Authenticated!"
+
+  			# Authentication was a success, now you can start making API calls.
+
+		rescue Podio::PodioError => ex
+  		# Something went wrong
+		end
+	end
 end
