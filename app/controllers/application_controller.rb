@@ -20,7 +20,6 @@ class ApplicationController < ActionController::Base
   			render text: "Podio Authenticated!"
 
   			@survey=Podio::Item.find_basic(339892745)
-
   			# Authentication was a success, now you can start making API calls.
 
 		rescue Podio::PodioError => ex

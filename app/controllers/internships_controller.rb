@@ -5,6 +5,7 @@ class InternshipsController < ApplicationController
   # GET /internships.json
   def index
     @internships = Internship.all
+#    @survey=Podio::Item.find_basic(339892745)
   end
 
   # GET /internships/1
