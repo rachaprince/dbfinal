@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151201005552) do
+ActiveRecord::Schema.define(version: 20151205183317) do
 
   create_table "away_ratings", force: :cascade do |t|
     t.integer  "internship_id"
@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 20151201005552) do
   add_index "internship_committees", ["internship_id"], name: "index_internship_committees_on_internship_id"
 
   create_table "internships", force: :cascade do |t|
-    t.integer  "type"
+    t.string   "product"
     t.string   "name"
     t.date     "start_date"
     t.date     "end_date"

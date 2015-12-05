@@ -6,66 +6,6 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-#format for podio json item retrived for each survey
-#<Podio::Item:0x007ff6266760f0
-  # @attributes=
-  #  {:item_id=>339892745,
-  #   :revision=>0,
-  #   :app=>nil,
-  #   :app_item_id=>109,
-  #   :app_item_id_formatted=>"109",
-  #   :external_id=>nil,
-  #   :title=>"Clay Bahl",
-  #   :fields=>
-  #    [{"external_id"=>"title",
-  #      "config"=>
-  #       {"label"=>"Full Name",
-  #        "mapping"=>nil,
-  #        "settings"=>{"format"=>"plain", "size"=>"small"}},
-  #      "field_id"=>96821566,
-  #      "label"=>"Full Name",
-  #      "values"=>[{"value"=>"Clay Bahl"}],
-  #      "type"=>"text"},
-  #     {"external_id"=>"your-email-address",
-  #      "config"=>
-  #       {"label"=>"Your Email Address",
-  #        "mapping"=>nil,
-  #        "settings"=>{"format"=>"plain", "size"=>"small"}},
-  #      "field_id"=>96822076,
-  #      "label"=>"Your Email Address",
-  #      "values"=>[{"value"=>"cbahl2@illinois.edu"}],
-  #      "type"=>"text"},
-  #     {"external_id"=>"home-local-committee",
-  #      "config"=>
-  #       {"label"=>"Home Local Committee",
-  #        "mapping"=>nil,
-  #        "settings"=>
-  #         {"multiple"=>false,
-  #          "options"=>
-  #           [{"status"=>"active",
-  #             "text"=>"Arizona State",
-  #             "id"=>1,
-  #             "color"=>"DCEBD8"},
-  #            {"status"=>"active",
-  #             "text"=>"Appalachian",
-  #             "id"=>2,
-  #  This continues for 38 home commitees
-  # "field_id"=>98638565,
-  #      "label"=>"Home Local Committee",
-  #      "values"=>
-  #       [{"value"=>
-  #          {"status"=>"active",
-  #           "text"=>"Illinois",
-  #           "id"=>17,
-  #           "color"=>"DCEBD8"}}],
-  # "field_id"=>96822079,
-  #      "label"=>"Region of Internship",
-  #      "values"=>
-  #       [{"value"=>
-  #          {"status"=>"active",
-  #           "text"=>"Central & Eastern Europe",
-  #           "id"=>3,
-  #           "color"=>"DCEBD8"}}],
 
 
 require 'pry'
@@ -82,28 +22,85 @@ Podio.setup(
   			#get all surveys
   			surveys=Podio::Item.find_all(12658551, :limit => 200)[0]
 
-  			puts surveys.count
-
-  			#binding.pry
   			surveys.each do |survey|
+         # binding.pry
 
-  				# puts i
-  				# puts survey[0]
-  				# puts survey[0][:fields][1]
-  				# i+=1
   				#create all participants
-  				#binding.pry
-  				Participant.create(name: survey[:fields][0]["values"][0]["value"] , email: survey[:fields][1]["values"][0]["value"])
+  				participant=Participant.create(
+  					name: survey[:fields][0]["values"][0]["value"], 
+  					email: survey[:fields][1]["values"][0]["value"])
 
   				#create all internships
+          #binding.pry
+          # puts overall_rating: survey[:fields][10]["values"][0]["value"]
+          # binding.pry
+         # values_by_external_id =Hash[survey[:fields].map {|h| h.values_at('values', 'value')}]
+          #puts values_by_external_id['title']
+          #binding.pry
+          if h = survey[:fields].find { |h| h['external_id'] == 'projectopportunity-name' }
+             internshipname= h['values'][0]['value']
+          else
+            internshipname=""
+          end
 
-  				#create all committees
+          if h=survey[:fields].find { |h| h['external_id'] == 'on-a-scale-of-1-10-how-likely-are-you-to-recommend-aies' }
+            value= h["values"][0]["value"]["id"]
+          else
+            value= nil
+          end
+          #binding.pry
+          internship=Internship.create(
+  					product: survey[:fields].find { |h| h['external_id'] == 'internship-type' }["values"][0]["value"]["text"],
+  					 name: internshipname,
+  					start_date: survey[:fields].find { |h| h['external_id'] == 'dates-of-internship' }["values"][0]["start_date_utc"],
+            end_date: survey[:fields].find { |h| h['external_id'] == 'dates-of-internship' }["values"][0]["end_date_utc"],
+  					overall_rating: value,
+  				  internship_rating: survey[:fields].find { |h| h['external_id'] == 'on-a-scale-of-1-10-how-would-you-rate-your-projectinter' }["values"][0]["value"]["id"],
+  					participant_id: participant.id)
+
+  				#create all home committees
+  				home=Committee.create(
+  				 	name: survey[:fields].find { |h| h['external_id'] == 'home-local-committee' }["values"][0]["value"]["text"],
+  				 	region: "Western Europe & North America",
+  					country: "USA"
+  				)
+
+          #create all away committees
+
+          if h=survey[:fields].find { |h| h['external_id'] == 'country-of-internship-2' }
+            country= h["values"][0]["value"]
+          else
+            country= nil
+          end
+
+          away=Committee.create(
+            name: survey[:fields].find { |h| h['external_id'] == 'your-hosting-local-committee' }["values"][0]["value"],
+            region: survey[:fields].find { |h| h['external_id'] == 'region-of-internship' }["values"][0]["value"]["text"],
+            country: country,
+          )
 
   				#create away_ratings
+  				AwayRating.create(
+            internship: internship,
+            committee: away,
+            rating: survey[:fields].find { |h| h['external_id'] == 'on-a-scale-of-1-10-how-would-you-rate-your-hosting-loca' }["values"][0]["value"]["id"],
+  				)
 
   				#create home_ratings
+          HomeRating.create(
+            participant: participant,
+            committee: home,
+            rating: survey[:fields].find { |h| h['external_id'] == 'on-a-scale-from-1-10-how-would-you-rate-your-home-local' }["values"][0]["value"]["id"],
+            prep_rating: survey[:fields].find { |h| h['external_id'] == 'on-a-scale-from-1-10-how-would-you-rate-the-cultural-pr' }["values"][0]["value"]["id"],
+          )
+
 
   				#create internship_committees
+          InternshipCommittee.create(
+            internship: internship,
+            home_c: home,
+            away_c: away,
+          )
 				end
 
   	rescue Podio::PodioError => ex

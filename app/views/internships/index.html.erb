@@ -1,7 +1,5 @@
 <p id="notice"><%= notice %></p>
 
-<%= puts @survey =>
-
 <h1>Listing Internships</h1>
 
 <table>
@@ -24,7 +22,7 @@
   <tbody>
     <% @internships.each do |internship| %>
       <tr>
-        <td><%= internship.type %></td>
+        <td><%= internship.product %></td>
         <td><%= internship.name %></td>
         <td><%= internship.start_date %></td>
         <td><%= internship.end_date %></td>
