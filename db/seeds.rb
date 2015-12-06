@@ -23,20 +23,17 @@ Podio.setup(
   			surveys=Podio::Item.find_all(12658551, :limit => 200)[0]
 
   			surveys.each do |survey|
-         # binding.pry
 
-  				#create all participants
-  				participant=Participant.create(
+  				#create all participants (unique)
+  				participant=Participant.new(
   					name: survey[:fields][0]["values"][0]["value"], 
   					email: survey[:fields][1]["values"][0]["value"])
+          participant.save
+         
+          particpant=Participant.find_by(email: survey[:fields][1]["values"][0]["value"])
+        
 
-  				#create all internships
-          #binding.pry
-          # puts overall_rating: survey[:fields][10]["values"][0]["value"]
-          # binding.pry
-         # values_by_external_id =Hash[survey[:fields].map {|h| h.values_at('values', 'value')}]
-          #puts values_by_external_id['title']
-          #binding.pry
+  				#create all internships (not unique)
           if h = survey[:fields].find { |h| h['external_id'] == 'projectopportunity-name' }
              internshipname= h['values'][0]['value']
           else
@@ -48,7 +45,7 @@ Podio.setup(
           else
             value= nil
           end
-          #binding.pry
+
           internship=Internship.create(
   					product: survey[:fields].find { |h| h['external_id'] == 'internship-type' }["values"][0]["value"]["text"],
   					 name: internshipname,
@@ -58,35 +55,38 @@ Podio.setup(
   				  internship_rating: survey[:fields].find { |h| h['external_id'] == 'on-a-scale-of-1-10-how-would-you-rate-your-projectinter' }["values"][0]["value"]["id"],
   					participant_id: participant.id)
 
-  				#create all home committees
-  				home=Committee.create(
+  				#create all home committees (unique)
+  				home=Committee.new(
   				 	name: survey[:fields].find { |h| h['external_id'] == 'home-local-committee' }["values"][0]["value"]["text"],
   				 	region: "Western Europe & North America",
   					country: "USA"
   				)
+          home.save
+          home=Committee.find_by(name: survey[:fields].find { |h| h['external_id'] == 'home-local-committee' }["values"][0]["value"]["text"])
 
-          #create all away committees
-
+          #create all away committees (unique)
           if h=survey[:fields].find { |h| h['external_id'] == 'country-of-internship-2' }
             country= h["values"][0]["value"]
           else
             country= nil
           end
 
-          away=Committee.create(
+          away=Committee.new(
             name: survey[:fields].find { |h| h['external_id'] == 'your-hosting-local-committee' }["values"][0]["value"],
             region: survey[:fields].find { |h| h['external_id'] == 'region-of-internship' }["values"][0]["value"]["text"],
             country: country,
           )
+          away.save
+          away=Committee.find_by(name: survey[:fields].find { |h| h['external_id'] == 'your-hosting-local-committee' }["values"][0]["value"]["text"])
 
-  				#create away_ratings
+  				#create away_ratings (not unique)
   				AwayRating.create(
             internship: internship,
             committee: away,
             rating: survey[:fields].find { |h| h['external_id'] == 'on-a-scale-of-1-10-how-would-you-rate-your-hosting-loca' }["values"][0]["value"]["id"],
   				)
 
-  				#create home_ratings
+  				#create home_ratings (not unique)
           HomeRating.create(
             participant: participant,
             committee: home,
@@ -95,7 +95,7 @@ Podio.setup(
           )
 
 
-  				#create internship_committees
+  				#create internship_committees (not unique)
           InternshipCommittee.create(
             internship: internship,
             home_c: home,
