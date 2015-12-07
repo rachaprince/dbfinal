@@ -10,6 +10,16 @@ class CommitteesController < ApplicationController
   # GET /committees/1
   # GET /committees/1.json
   def show
+    # @internships=InternshipCommittee.find(home_c: 1)
+     @internships=InternshipCommittee.where(home_c: @committee.id)
+   if @internships.empty?
+     @internships=InternshipCommittee.where(away_c: @committee.id)
+   end
+   if @committee.country =="USA"
+      @ratings=HomeRating.where(committee: @committee.id)
+    else
+     @ratings=AwayRating.where(committee: @committee.id)
+   end 
   end
 
   # GET /committees/new

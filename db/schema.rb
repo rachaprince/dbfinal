@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151205183317) do
+ActiveRecord::Schema.define(version: 20151207200409) do
 
   create_table "away_ratings", force: :cascade do |t|
     t.integer  "internship_id"
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20151205183317) do
 
   create_table "committees", force: :cascade do |t|
     t.string   "name"
-    t.integer  "region"
+    t.string   "region"
     t.string   "country"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

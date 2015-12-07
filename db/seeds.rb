@@ -61,6 +61,7 @@ Podio.setup(
   				 	region: "Western Europe & North America",
   					country: "USA"
   				)
+         # binding.pry
           home.save
           home=Committee.find_by(name: survey[:fields].find { |h| h['external_id'] == 'home-local-committee' }["values"][0]["value"]["text"])
 
@@ -70,14 +71,17 @@ Podio.setup(
           else
             country= nil
           end
-
+      
           away=Committee.new(
             name: survey[:fields].find { |h| h['external_id'] == 'your-hosting-local-committee' }["values"][0]["value"],
             region: survey[:fields].find { |h| h['external_id'] == 'region-of-internship' }["values"][0]["value"]["text"],
             country: country,
           )
+          #binding.pry
           away.save
-          away=Committee.find_by(name: survey[:fields].find { |h| h['external_id'] == 'your-hosting-local-committee' }["values"][0]["value"]["text"])
+#binding.pry
+          away=Committee.find_by(name: survey[:fields].find { |h| h['external_id'] == 'your-hosting-local-committee' }["values"][0]["value"])
+          #binding.pry
 
   				#create away_ratings (not unique)
   				AwayRating.create(
