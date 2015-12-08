@@ -1,6 +1,35 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Committees</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <p>
+        <h1>AIESEC Internship Quality Database</h1>
+      </p>
+    </div>
+  </div>
+
+<!-- Create average ratings by country /region-->
+<%countryratings=[]%>
+<%countries={}%>
+<%countries=Committee.group(:country).count%>
+<%countries.each_key do |countryname|%>
+  <% temp=[]%>
+  <%count=0%> 
+  <%countryCom=Committee.where(country: countryname )%>
+    <%countryCom.each do |c| %>
+      <%temp2=AwayRating.where(committee: c.id)%>
+      <%temp2.each do |a|%>
+        <%temp.push(a.rating)%>
+        <% count +=1%>
+      <%end%>
+    <%end%>
+    <%sum = temp.reduce :+%>
+    <%sum = sum/count.to_f%>
+    <%countryratings.push([countryname, sum.round(2)])%>
+<%end%>
+
+<%= geo_chart countryratings, colors: ['#CAE1FF','#00008B'],height: "500px"%>
 
 <table>
   <thead>
