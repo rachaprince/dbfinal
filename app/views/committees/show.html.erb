@@ -1,3 +1,4 @@
+
 <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
 <p id="notice"><%= notice %></p>
 <div class="container">
@@ -24,27 +25,50 @@
     </div>
   </div>
 
-<%= pie_chart [["Football", 10], ["Basketball", 5]] %>
+<!-- compute average-->
+<% array= [] %>
+<% @ratings.each do |element| %>
+   <% array.push(element.rating)%>
+<% end %>
+<% sum=0%>
+<%array.each do |a| %>
+<%sum += a%>
+<%end%>
+<%sum%>
+<% sum= sum/array.length.to_f%>
+
+
 
 <div class="row">
 <%ratingvalue= "width:70"%>
   <div class="col-md-6 text-center">
     <p>
-      <strong>Average Rating as Host Committee:</strong>
+      <strong>Average Rating as Committee:</strong>
+        <%= bar_chart [["", sum]] , min: 0, max: 10, height: "100px"%>
       </p>
   </div>
-</div>
 
-     
-    </p>
-  </div>
+<!-- compute average-->
+<% array2= [] %>
+<% @internships.each do |element| %>
+<% internship = Internship.find(element.internship)%>
+   <% array2.push(internship.internship_rating)%>
+<% end %>
+<% sum2=0%>
+<%array2.each do |a| %>
+<%sum2 += a%>
+<%end%>
+
+<% sum2= sum2/array2.length.to_f%>
+
+
+    
+
   <div class="col-md-6 text-center">
     <p>
       <strong>Average Rating for all Projects:</strong>
-  <div class="progress">
-    <div class="progress-bar" role="progressbar" aria-valuenow="70"
-    aria-valuemin="0" aria-valuemax="100" style="width:70%">
-      <span class="sr-only">70% Complete</span>
+    <%= bar_chart [["", sum2]] , min: 0, max: 10, height: "100px"%>
+    </p>
   </div>
 </div>
     </p>
