@@ -3,4 +3,32 @@
 
 body {
 	padding-top: 70px;
+	margin: 15px;
+}
+
+#appname {
+  float: left;
+  margin-right: 10px;
+  font-size: 1.7em;
+  color: black;
+  letter-spacing: -1px;
+  padding-top: 9px;
+  font-weight: bold;
+}
+
+.stats{
+	border-radius: 25px;
+	background-color: #B0C4DE;
+	height: 50px;
+	text-align: left;
+	vertical-align: middle;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size: 15px;
+	padding: 10px;
+	display: inline-block;
+	margin-top: 10px;
+}
+
+.numstats{
+	display: inline-block;
 }

@@ -1,13 +1,5 @@
 <p id="notice"><%= notice %></p>
 
-<div class="container">
-  <div class="row">
-    <div class="col-md-12 text-center">
-      <p>
-        <h1>AIESEC Internship Quality Database</h1>
-      </p>
-    </div>
-  </div>
 
 <!-- Create average ratings by country /region-->
 <%countryratings=[]%>
@@ -31,25 +23,50 @@
 
 <%= geo_chart countryratings, colors: ['#CAE1FF','#00008B'],height: "500px"%>
 
-<table>
+<div class="row">
+  <div class="col-md-3 text-center stats">
+      <strong>Total Internships in Database:</strong>
+      <div class="numstats">
+      <%=Internship.all.count%>
+      </div>
+  </div>
+  <div class="col-md-3 text-center stats">
+      <strong>Total Countries in Database:</strong>
+      <%=Committee.group(:country).count.count%>
+  </div>
+  <div class="col-md-3 text-center stats">
+      <strong>Total Committees in Database:</strong>
+      <%=Committee.all.count %>
+  </div>
+  <div class="col-md-3 text-center stats">
+      <strong>Average Rating for AIESEC:</strong>
+      <%sum=0%>
+      <% Internship.all.each do |internship| %>
+        <% if internship.overall_rating %>
+          <%sum += internship.overall_rating %>
+          <%end%>
+        <%end%>
+        <%sum = sum/Internship.all.count.to_f %>
+        <%= sum.round(2)%>
+  </div>
+
+<table class="table table-striped table-bordered table-hover">
   <thead>
     <tr>
-      <th>Name</th>
       <th>Region</th>
       <th>Country</th>
+      <th>Committee Name</th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
-    <% @committees.each do |committee| %>
+    <% Committee.group([:region, :country]).each do |committee| %>
       <tr>
-        <td><%= committee.name %></td>
         <td><%= committee.region %></td>
         <td><%= committee.country %></td>
-        <td><%= link_to 'Show', committee %></td>
-        <td><%= link_to 'Edit', edit_committee_path(committee) %></td>
-        <td><%= link_to 'Destroy', committee, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= committee.name %></td>
+        <td><%= link_to 'View Committee Statistics', committee %></td>
       </tr>
     <% end %>
   </tbody>
