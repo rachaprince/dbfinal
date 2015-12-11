@@ -8,7 +8,7 @@
 
 
 
-require 'pry'
+
 Podio.setup(
   		:api_key    => 'aiesecdatabase',
   		:api_secret => 'zONm9h1SrW8EOh3TLp1SROjK519B2NamVev4oWW6WFe4dKnDg5NLAZTLaXsNdZ2x'
