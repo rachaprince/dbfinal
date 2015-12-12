@@ -41,7 +41,7 @@
 
 <div class="row">
 <%ratingvalue= "width:70"%>
-  <div class="col-md-6 text-center">
+  <div class="col-md-6 text-center barchart">
     <p>
       <strong>Average Rating as Committee:</strong>
         <%= bar_chart [["", sum]] , min: 0, max: 10, height: "100px"%>
@@ -64,7 +64,7 @@
 
     
 
-  <div class="col-md-6 text-center">
+  <div class="col-md-6 text-center barchart">
     <p>
       <strong>Average Rating for all Projects:</strong>
     <%= bar_chart [["", sum2]] , min: 0, max: 10, height: "100px"%>
@@ -75,12 +75,6 @@
     </div>
   </div>
 
-<div class="row">
-  <div class="col-md-6 text-center">
-    <p>
-      <strong>Number of Incoming Participants:</strong>
-     
-    </p>
   </div>
   <div class="col-md-6 text-center">
     <p>
@@ -90,42 +84,30 @@
     </div>
   </div>
 
-  <table>
+<table class="table table-striped table-bordered table-hover">
     <thead>
       <tr>
         <th>Type</th>
-        <th>Name</th>
+
         <th>Start date</th>
         <th>End date</th>
-        <th>Key learning</th>
         <th>Overall rating</th>
-        <th>Overall expl</th>
         <th>Internship rating</th>
-        <th>Internship expl</th>
-        <th>Participant</th>
         <th colspan="3"></th>
       </tr>
     </thead>
+
   <% @internships.each do |element| %>
   	<% internship = Internship.find(element.internship)%>
         <tr>
           <td><%= internship.product %></td>
-          <td><%= internship.name %></td>
           <td><%= internship.start_date %></td>
           <td><%= internship.end_date %></td>
-          <td><%= internship.key_learning %></td>
           <td><%= internship.overall_rating %></td>
-          <td><%= internship.overall_expl %></td>
           <td><%= internship.internship_rating %></td>
-          <td><%= internship.internship_expl %></td>
-          <td><%= internship.participant %></td>
          </tr>
       <% end %>
     </tbody>
   </table>
 
-  <% @ratings.each do |rating| %>
-
-  <%= rating.id %>
-  <%end%>
 </div>

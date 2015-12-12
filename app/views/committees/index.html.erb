@@ -60,8 +60,10 @@
     </tr>
   </thead>
 
+  <%orderedCom=Committee.order("region ASC, country ASC")%>
+
   <tbody>
-    <% Committee.group([:region, :country]).each do |committee| %>
+    <% orderedCom.each do |committee| %>
       <tr>
         <td><%= committee.region %></td>
         <td><%= committee.country %></td>
