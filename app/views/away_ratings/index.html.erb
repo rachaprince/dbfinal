@@ -2,7 +2,7 @@
 
 <h1>Listing Away Ratings</h1>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Internship</th>
@@ -15,12 +15,11 @@
     </tr>
   </thead>
 
-  <tbody>
+  <tbody >
     <% @away_ratings.each do |away_rating| %>
       <tr>
-        <td><%= away_rating.internship %></td>
-        <td><%= away_rating.committee %></td>
-        <td><%= away_rating.visa %></td>
+        <td><%= away_rating.internship.id %></td>
+        <td><%= away_rating.committee.id %></td>
         <td><%= away_rating.rating %></td>
         <td><%= away_rating.explanation %></td>
         <td><%= away_rating.experience_difficulties %></td>

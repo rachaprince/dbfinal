@@ -24,12 +24,13 @@ Podio.setup(
 
   			surveys.each do |survey|
 
-  				#create all participants (unique)
+  				#create all participants (unique email)
   				participant=Participant.new(
   					name: survey[:fields][0]["values"][0]["value"], 
   					email: survey[:fields][1]["values"][0]["value"])
           participant.save
          
+         #saves id as a foreign key
           particpant=Participant.find_by(email: survey[:fields][1]["values"][0]["value"])
         
 
